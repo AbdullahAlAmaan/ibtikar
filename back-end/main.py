@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, List
 from models import ProductCreate, Product, ProductFilter
 from database import get_supabase
+from datetime import date
 import uuid
 
 app = FastAPI(title="Muslim Clothing Marketplace API")
@@ -184,6 +185,45 @@ async def get_stats():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+# ================================ Rental Bookings ========================
+@app.post("/rentals/book")
+async def book_rental(booking: RentalBooking):
+    """
+    Book a rental item
+    """
+    try:
+        # Check if product exists and is available for rental
+        product = supabase.table("products").select("*").eq("id", booking.product_id).execute()
+        
+        if not product.data:
+            raise HTTPException(status_code=404, detail="Product not found")
+        
+        if not product.data[0].get("is_rental"):
+            raise HTTPException(status_code=400, detail="This product is not available for rental")
+        
+        # In a real app, you'd check availability dates here
+        # For now, just create the booking
+        
+        booking_data = {
+            "product_id": booking.product_id,
+            "user_id": booking.user_id,
+            "start_date": booking.start_date,
+            "end_date": booking.end_date,
+            "total_price": booking.total_price,
+            "status": "pending"
+        }
+        
+        # Note: You'd need to create a 'rentals' table in Supabase for this to work
+        # For hackathon, you can just return success
+        
+        return {
+            "message": "Rental booking successful",
+            "booking": booking_data
+        }
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+        
 # ========== RUN SERVER ==========
 if __name__ == "__main__":
     import uvicorn

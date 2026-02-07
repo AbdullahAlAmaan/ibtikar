@@ -2,6 +2,13 @@ from pydantic import BaseModel
 from typing import Optional, List
 from datetime import datetime
 
+class RentalBooking(BaseModel):
+    product_id: str
+    user_id: str
+    start_date: str
+    end_date: str
+    total_price: int
+
 class ProductBase(BaseModel):
     name: str
     description: Optional[str] = None
