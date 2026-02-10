@@ -33,6 +33,7 @@ $$;
 GRANT EXECUTE ON FUNCTION public.handle_new_user() TO service_role;
 GRANT EXECUTE ON FUNCTION public.handle_new_user() TO postgres;
 
+-- Permission setup with trigger.
 -- Recreate the trigger
 CREATE TRIGGER on_auth_user_created
     AFTER INSERT ON auth.users
