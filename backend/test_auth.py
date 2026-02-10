@@ -3,10 +3,10 @@
 import os
 import sys
 
-sys.path.insert(0, '/Users/abdullahalamaan/Documents/GitHub/ibtikar/backend')
+sys.path.insert(0, '/Users/abdullahalamaan/Documents/GitHub/kloset-kifayah/backend')
 
 from dotenv import load_dotenv
-load_dotenv('/Users/abdullahalamaan/Documents/GitHub/ibtikar/backend/.env')
+load_dotenv('/Users/abdullahalamaan/Documents/GitHub/kloset-kifayah/backend/.env')
 
 from supabase import create_client
 
