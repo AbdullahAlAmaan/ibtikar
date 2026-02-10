@@ -6,6 +6,8 @@
 -- Add sell_price column (for buy option)
 ALTER TABLE listings ADD COLUMN IF NOT EXISTS sell_price DECIMAL(10, 2);
 
+-- Missing thing here is to add rent price.
+
 -- Add is_modest column (for Islamic/modest filter)
 ALTER TABLE listings ADD COLUMN IF NOT EXISTS is_modest BOOLEAN DEFAULT FALSE;
 
